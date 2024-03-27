@@ -1,4 +1,34 @@
 {
   "singleQuote": true,
-  "semi": true
+  "semi": true,
+  "importOrder": [
+    "^(react/(.*)$)|^(react$)",
+    "^(next/(.*)$)|^(next$)",
+    "",
+    "<THIRD_PARTY_MODULES>",
+    "",
+    "^(tanstack/(.*)$)|^(tanstack$)",
+    "",
+    "^(contexts/(.*)$)|^(contexts$)",
+    "",
+    "^(services/(.*)$)|^(services$)",
+    "",
+    "^(views/(.*)$)|^(views$)",
+    "",
+    "^(hooks/(.*)$)|^(hooks$)",
+    "",
+    "^(types/(.*)$)|^(types$)",
+    "",
+    "^(utils/(.*)$)|^(utils$)",
+    "",
+    "^(components/(.*)$)|^(components$)",
+    "",
+    "^(styles/(.*)$)|^(styles$)",
+    "",
+    "^(lucide-react/(.*)$)|^(lucide-react$)",
+    "",
+    "^[./]",
+    ""
+  ],
+  "plugins": ["@ianvs/prettier-plugin-sort-imports"]
 }
