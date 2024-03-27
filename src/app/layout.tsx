@@ -1,14 +1,14 @@
-import type { Metadata } from "next";
-import { Inter } from "next/font/google";
+import type { Metadata } from 'next';
+import { Inter } from 'next/font/google';
 
 // styles
-import "./globals.css";
+import 'styles/globals.css';
 
-const inter = Inter({ subsets: ["latin"] });
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-  title: "Melhor Celular",
-  description: "Sistema de cadastro de celulares",
+  title: 'Melhor Celular',
+  description: 'Sistema de cadastro de celulares',
 };
 
 const RootLayout = ({
@@ -21,6 +21,6 @@ const RootLayout = ({
       <body className={inter.className}>{children}</body>
     </html>
   );
-}
+};
 
 export default RootLayout;
