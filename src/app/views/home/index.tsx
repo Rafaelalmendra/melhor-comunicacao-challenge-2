@@ -2,6 +2,10 @@
 
 import { useState } from 'react';
 
+import { useProductsTableColumn } from 'hooks';
+
+import type { ProductsType } from 'types';
+
 import { Button, DataTable } from 'components';
 
 import { Plus, Smartphone } from 'lucide-react';
@@ -10,7 +14,20 @@ const HomeView = () => {
   const [totalPages, setTotalPages] = useState(0);
   const [pagination, setPagination] = useState({
     pageIndex: 0,
-    pageSize: 10,
+    pageSize: 30,
+  });
+
+  const handleEditProduct = (row: ProductsType) => {
+    console.log(row);
+  };
+
+  const handleDeleteProduct = (row: ProductsType) => {
+    console.log(row);
+  };
+
+  const { productsColumn } = useProductsTableColumn({
+    handleDelete: handleDeleteProduct,
+    handleEdit: handleEditProduct,
   });
 
   return (
@@ -28,8 +45,8 @@ const HomeView = () => {
 
       <div className="w-full">
         <DataTable
-          columns={[]}
           data={[]}
+          columns={productsColumn}
           totalPages={totalPages}
           pagination={pagination}
           setPagination={setPagination}

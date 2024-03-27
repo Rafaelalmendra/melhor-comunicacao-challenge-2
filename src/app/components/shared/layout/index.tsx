@@ -1,4 +1,4 @@
-import { Navbar } from 'components';
+import { Footer, Navbar } from 'components';
 
 type LayoutProps = {
   children: React.ReactNode;
@@ -8,11 +8,19 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <>
       <Navbar />
-      <main className="w-full flex flex-col justify-center items-center">
+
+      <main
+        className="w-full flex flex-col items-center"
+        style={{
+          minHeight: 'calc(100vh - 174px)',
+        }}
+      >
         <div className="max-w-7xl w-full flex flex-col items-center justify-center">
           {children}
         </div>
       </main>
+
+      <Footer />
     </>
   );
 };
