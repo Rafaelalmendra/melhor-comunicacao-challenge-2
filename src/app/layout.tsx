@@ -1,6 +1,9 @@
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
+// components
+import { Layout } from 'components';
+
 // styles
 import 'styles/globals.css';
 
@@ -18,7 +21,9 @@ const RootLayout = ({
 }>) => {
   return (
     <html lang="pt-br">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <Layout>{children}</Layout>
+      </body>
     </html>
   );
 };
