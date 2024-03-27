@@ -1,5 +1,7 @@
+import { HomeView } from 'views';
+
 const Home = () => {
-  return <p>Hello world!</p>;
+  return <HomeView />;
 };
 
 export default Home;

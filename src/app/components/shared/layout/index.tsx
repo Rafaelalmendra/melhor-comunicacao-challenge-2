@@ -8,7 +8,11 @@ const Layout = ({ children }: LayoutProps) => {
   return (
     <>
       <Navbar />
-      <main>{children}</main>
+      <main className="w-full flex flex-col justify-center items-center">
+        <div className="max-w-7xl w-full flex flex-col items-center justify-center">
+          {children}
+        </div>
+      </main>
     </>
   );
 };
