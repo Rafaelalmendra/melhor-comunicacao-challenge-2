@@ -15,7 +15,7 @@ const Layout = ({ children }: LayoutProps) => {
           minHeight: 'calc(100vh - 174px)',
         }}
       >
-        <div className="max-w-7xl w-full flex flex-col items-center justify-center">
+        <div className="max-w-7xl w-full flex flex-col items-center justify-center px-5 lg:px-0">
           {children}
         </div>
       </main>
