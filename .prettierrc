@@ -17,6 +17,7 @@
     "",
     "^(hooks/(.*)$)|^(hooks$)",
     "",
+    "^(schemas/(.*)$)|^(schemas$)",
     "^(types/(.*)$)|^(types$)",
     "",
     "^(utils/(.*)$)|^(utils$)",

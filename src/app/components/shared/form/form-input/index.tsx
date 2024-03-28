@@ -22,7 +22,7 @@ const FormInput = ({
 
       <Input {...register} {...inputProps} />
 
-      {messageError !== null && (
+      {messageError !== undefined && (
         <p className="text-sm text-red-500">{messageError}</p>
       )}
     </div>

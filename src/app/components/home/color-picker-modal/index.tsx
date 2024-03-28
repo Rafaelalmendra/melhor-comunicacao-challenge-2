@@ -6,7 +6,7 @@ import { Button, Dialog, DialogContent, DialogFooter } from 'components';
 
 type ColorPickerModalProps = {
   color: string;
-  setColor: (color: string) => void;
+  handleChangeColor: (color: string) => void;
   isOpen: boolean;
   onClose: () => void;
 };
@@ -15,12 +15,8 @@ const ColorPickerModal = ({
   color,
   isOpen,
   onClose,
-  setColor,
+  handleChangeColor,
 }: ColorPickerModalProps) => {
-  const handleChangeColor = (color: string) => {
-    setColor(color);
-  };
-
   return (
     <Dialog open={isOpen} onOpenChange={onClose} modal>
       <DialogContent className="w-auto flex flex-col items-center justify-center p-8">
