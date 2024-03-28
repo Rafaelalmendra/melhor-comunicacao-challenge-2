@@ -6,6 +6,8 @@ import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 
+import { useLocalStorage } from 'hooks';
+
 import { productsSchema, type ProductsSchemaType } from 'schemas';
 import type { ProductsType } from 'types';
 
@@ -34,6 +36,9 @@ const ProductActionModal = ({
   onClose,
   defaultData,
 }: ProductActionModalProps) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [products, setProducts] = useLocalStorage('products', []);
+
   const {
     register,
     setValue,
@@ -46,14 +51,14 @@ const ProductActionModal = ({
       brand: defaultData?.brand ?? '',
       price: defaultData?.price ?? '',
       color: defaultData?.color ?? '',
-      startSales: defaultData?.startSales ?? '',
-      endSales: defaultData?.endSales ?? '',
     },
   });
 
   const [colorPickerModal, setColorPickerModal] = useState(false);
   const [color, setColor] = useState(defaultData?.color ?? '');
   const [price, setPrice] = useState(defaultData?.price ?? '');
+  const [startSalesDate, setStartSalesDate] = useState('');
+  const [endSalesDate, setEndSalesDate] = useState('');
 
   const handleOpenColorPicker = () => {
     setColorPickerModal(true);
@@ -70,14 +75,44 @@ const ProductActionModal = ({
 
   const handleChangePrice = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = e.target;
+
+    if (
+      value === '' ||
+      value === 'R$' ||
+      value === 'R$ ' ||
+      value === 'R$ 0,0' ||
+      value === undefined
+    ) {
+      setPrice('');
+      setValue('price', '');
+      return;
+    }
+
     const newPrice = formatMoney(value);
 
     setPrice(newPrice);
     setValue('price', newPrice);
   };
 
+  const handleChangeDate = (type: 'initial' | 'final', date: string) => {
+    if (type === 'initial') {
+      setStartSalesDate(date);
+      setValue('startSales', new Date(date));
+    } else {
+      setEndSalesDate(date);
+      setValue('endSales', new Date(date));
+    }
+  };
+
   const onSubmit: SubmitHandler<ProductsSchemaType> = (data) => {
-    console.log(data);
+    const newProduct: ProductsType = {
+      code: crypto.randomUUID(),
+      ...data,
+      startSales: String(new Date(data.startSales).toISOString().split('T')[0]),
+      endSales: String(new Date(data.endSales).toISOString().split('T')[0]),
+    };
+
+    console.log(newProduct);
   };
 
   return (
@@ -134,7 +169,6 @@ const ProductActionModal = ({
                     </p>
                   )}
                 </div>
-
                 <FormInput
                   label="Preço"
                   placeholder="Preço do produto"
@@ -146,15 +180,20 @@ const ProductActionModal = ({
                 <FormInput
                   type="date"
                   label="Início das vendas"
+                  value={startSalesDate}
                   messageError={errors.startSales?.message}
-                  register={register('startSales')}
+                  onChange={(e) => {
+                    handleChangeDate('initial', e.target.value);
+                  }}
                 />
-
                 <FormInput
                   type="date"
                   label="Fim das vendas"
+                  value={endSalesDate}
                   messageError={errors.endSales?.message}
-                  register={register('endSales')}
+                  onChange={(e) => {
+                    handleChangeDate('final', e.target.value);
+                  }}
                 />
               </div>
             </div>
