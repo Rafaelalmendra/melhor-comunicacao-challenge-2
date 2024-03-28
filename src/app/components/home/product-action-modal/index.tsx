@@ -9,6 +9,8 @@ import { useForm, type SubmitHandler } from 'react-hook-form';
 import { productsSchema, type ProductsSchemaType } from 'schemas';
 import type { ProductsType } from 'types';
 
+import { formatMoney } from 'utils';
+
 import {
   Button,
   ColorPickerModal,
@@ -51,6 +53,7 @@ const ProductActionModal = ({
 
   const [colorPickerModal, setColorPickerModal] = useState(false);
   const [color, setColor] = useState(defaultData?.color ?? '');
+  const [price, setPrice] = useState(defaultData?.price ?? '');
 
   const handleOpenColorPicker = () => {
     setColorPickerModal(true);
@@ -63,6 +66,14 @@ const ProductActionModal = ({
   const handleChangeColor = (color: string) => {
     setColor(color);
     setValue('color', color);
+  };
+
+  const handleChangePrice = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { value } = e.target;
+    const newPrice = formatMoney(value);
+
+    setPrice(newPrice);
+    setValue('price', newPrice);
   };
 
   const onSubmit: SubmitHandler<ProductsSchemaType> = (data) => {
@@ -127,8 +138,9 @@ const ProductActionModal = ({
                 <FormInput
                   label="Preço"
                   placeholder="Preço do produto"
+                  value={price}
                   messageError={errors.price?.message}
-                  register={register('price')}
+                  onChange={handleChangePrice}
                 />
 
                 <FormInput
@@ -137,6 +149,7 @@ const ProductActionModal = ({
                   messageError={errors.startSales?.message}
                   register={register('startSales')}
                 />
+
                 <FormInput
                   type="date"
                   label="Fim das vendas"
