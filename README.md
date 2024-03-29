@@ -24,5 +24,4 @@ Melhor-celular is a responsive site to manage cell phone records
 
 - Clone the repository;
 - Install dependencies (`pnpm install`);
-- Run the [server](https://github.com/Rafaelalmendra/melhor-comunicacao-challenge-2).
 - Run application (`pnpm run dev`);
