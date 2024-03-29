@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, type SubmitHandler } from 'react-hook-form';
@@ -61,6 +61,16 @@ const ProductActionModal = ({
   const [price, setPrice] = useState(defaultData?.price ?? '');
   const [startSalesDate, setStartSalesDate] = useState('');
   const [endSalesDate, setEndSalesDate] = useState('');
+
+  useEffect(() => {
+    if (defaultData !== null) {
+      setStartSalesDate(defaultData.startSales);
+      setValue('startSales', new Date(defaultData.startSales));
+      setEndSalesDate(defaultData.endSales);
+      setValue('endSales', new Date(defaultData.endSales));
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [defaultData]);
 
   const handleOpenColorPicker = () => {
     setColorPickerModal(true);

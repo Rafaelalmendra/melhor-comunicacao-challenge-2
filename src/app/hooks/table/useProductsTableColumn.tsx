@@ -56,14 +56,18 @@ const useProductsTableColumn = ({
       accessorKey: 'startSales',
       header: 'Início das vendas',
       cell: ({ row }) => {
-        return <p>{format(new Date(row.original.startSales), 'dd-MM-yyyy')}</p>;
+        const startDate = new Date(row.original.startSales);
+        startDate.setDate(startDate.getDate() + 1);
+        return <p>{format(startDate, 'dd-MM-yyyy')}</p>;
       },
     },
     {
       accessorKey: 'endSales',
       header: 'Fim das vendas',
       cell: ({ row }) => {
-        return <p>{format(new Date(row.original.endSales), 'dd-MM-yyyy')}</p>;
+        const endDate = new Date(row.original.endSales);
+        endDate.setDate(endDate.getDate() + 1);
+        return <p>{format(endDate, 'dd-MM-yyyy')}</p>;
       },
     },
     {
