@@ -36,7 +36,6 @@ const ProductActionModal = ({
   onClose,
   defaultData,
 }: ProductActionModalProps) => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [products, setProducts] = useLocalStorage('products', []);
 
   const {
@@ -122,20 +121,33 @@ const ProductActionModal = ({
     if (defaultData === null) {
       if (products === undefined || products.length === 0) {
         setProducts([newProduct]);
-        return;
+      } else {
+        const newProducts = [newProduct, ...products];
+        setProducts(newProducts);
       }
 
-      setProducts([newProduct, ...products]);
-      return;
+      toast({
+        title: 'Produto adicionado com sucesso ✅',
+      });
+
+      setTimeout(() => {
+        onClose();
+      }, 2000);
     }
 
     const newProducts = products.map((product: ProductsType) => {
       if (product.code === defaultData.code) return newProduct;
-
       return product;
     });
 
     setProducts(newProducts);
+    toast({
+      title: 'Produto editado com sucesso ✅',
+    });
+
+    setTimeout(() => {
+      onClose();
+    }, 2000);
   };
 
   return (

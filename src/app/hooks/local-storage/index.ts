@@ -8,7 +8,7 @@ const useLocalStorage = (key: string, initialValue: any) => {
       const storedValue = localStorage.getItem(key);
       return storedValue != null ? JSON.parse(storedValue) : initialValue;
     } catch (error) {
-      console.error('Error getting data from localStorage:', error);
+      console.error('Error getting data from localStorage: ', error);
       return initialValue;
     }
   };
@@ -19,7 +19,7 @@ const useLocalStorage = (key: string, initialValue: any) => {
     try {
       localStorage.setItem(key, JSON.stringify(value));
     } catch (error) {
-      console.error('Error setting data to localStorage:', error);
+      console.error('Error setting data to localStorage :', error);
     }
   }, [key, value]);
 

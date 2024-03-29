@@ -35,6 +35,21 @@ const useProductsTableColumn = ({
     {
       accessorKey: 'color',
       header: 'Cor',
+      cell: ({ row }) => {
+        return (
+          <div className="w-full flex items-center justify-start">
+            <div
+              className={`w-6 h-6 rounded`}
+              style={{
+                background:
+                  row.original.color !== ''
+                    ? row.original.color
+                    : 'transparent',
+              }}
+            />
+          </div>
+        );
+      },
     },
     {
       accessorKey: 'startSales',
@@ -59,7 +74,7 @@ const useProductsTableColumn = ({
               size="icon"
               variant="outline"
               onClick={() => {
-                handleEdit(row.original as ProductsType);
+                handleEdit(row.original);
               }}
             >
               <Pencil size={18} />
@@ -69,7 +84,7 @@ const useProductsTableColumn = ({
               size="icon"
               variant="outline"
               onClick={() => {
-                handleDelete(row.original as ProductsType);
+                handleDelete(row.original);
               }}
             >
               <Trash size={18} />

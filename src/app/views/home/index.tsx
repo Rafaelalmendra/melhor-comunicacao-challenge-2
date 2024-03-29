@@ -1,16 +1,19 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import { useProductsTableColumn } from 'hooks';
+import { useLocalStorage, useProductsTableColumn } from 'hooks';
 
 import type { ProductsType } from 'types';
 
-import { Button, DataTable, ProductActionModal } from 'components';
+import { Button, DataTable, NoDataTable, ProductActionModal } from 'components';
 
 import { Plus, Smartphone } from 'lucide-react';
 
 const HomeView = () => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [products, setProducts] = useLocalStorage('products', []);
+
   const [editProductModal, setEditProductModal] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [deleteProductModal, setDeleteProductModal] = useState(false);
@@ -24,6 +27,10 @@ const HomeView = () => {
     pageIndex: 0,
     pageSize: 30,
   });
+
+  useEffect(() => {
+    console.log('products: ', products);
+  }, [products]);
 
   const handleAddProduct = () => {
     setEditProductModal(true);
@@ -68,13 +75,17 @@ const HomeView = () => {
         </div>
 
         <div className="w-full">
-          <DataTable
-            data={[]}
-            columns={productsColumn}
-            totalPages={totalPages}
-            pagination={pagination}
-            setPagination={setPagination}
-          />
+          {products === undefined || (products.length === 0 && <NoDataTable />)}
+
+          {products !== undefined && products.length > 0 && (
+            <DataTable
+              data={products}
+              columns={productsColumn}
+              totalPages={totalPages}
+              pagination={pagination}
+              setPagination={setPagination}
+            />
+          )}
         </div>
       </div>
 
