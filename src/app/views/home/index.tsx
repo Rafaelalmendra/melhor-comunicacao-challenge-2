@@ -2,27 +2,28 @@
 
 import { useEffect, useState } from 'react';
 
-import { useLocalStorage, useProductsTableColumn } from 'hooks';
+import { useProductsTableColumn } from 'hooks';
 
 import type { ProductsType } from 'types';
 
-import { Button, DataTable, NoDataTable, ProductActionModal } from 'components';
+import {
+  Button,
+  DataTable,
+  NoDataTable,
+  ProductActionModal,
+  ProductDeleteModal,
+} from 'components';
 
 import { Plus, Smartphone } from 'lucide-react';
 
 const HomeView = () => {
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [products, setProducts] = useLocalStorage('products', []);
+  const products = JSON.parse(localStorage.getItem('products') ?? '');
 
   const [editProductModal, setEditProductModal] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [deleteProductModal, setDeleteProductModal] = useState(false);
   const [currentProduct, setCurrentProduct] = useState<ProductsType | null>(
     null,
   );
-
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const [totalPages, setTotalPages] = useState(0);
 
   useEffect(() => {
     console.log('products: ', products);
@@ -84,6 +85,14 @@ const HomeView = () => {
           isOpen={editProductModal}
           onClose={handleCloseModal}
           defaultData={currentProduct}
+        />
+      )}
+
+      {deleteProductModal && currentProduct !== null && (
+        <ProductDeleteModal
+          isOpen={deleteProductModal}
+          onClose={handleCloseModal}
+          code={currentProduct.code}
         />
       )}
     </>

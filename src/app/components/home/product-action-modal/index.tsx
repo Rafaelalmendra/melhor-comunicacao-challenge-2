@@ -25,6 +25,8 @@ import {
   Label,
 } from 'components';
 
+import { Loader2 } from 'lucide-react';
+
 type ProductActionModalProps = {
   isOpen: boolean;
   onClose: () => void;
@@ -36,6 +38,7 @@ const ProductActionModal = ({
   onClose,
   defaultData,
 }: ProductActionModalProps) => {
+  const [loading, setLoading] = useState(false);
   const [products, setProducts] = useLocalStorage('products', []);
 
   const {
@@ -104,6 +107,8 @@ const ProductActionModal = ({
   };
 
   const onSubmit: SubmitHandler<ProductsSchemaType> = (data) => {
+    setLoading(true);
+
     const newProduct: ProductsType = {
       code: crypto.randomUUID(),
       ...data,
@@ -112,6 +117,7 @@ const ProductActionModal = ({
     };
 
     if (new Date(endSalesDate) < new Date(startSalesDate)) {
+      setLoading(false);
       return toast({
         title: 'Data final não pode ser menor que a data inicial',
         variant: 'destructive',
@@ -131,8 +137,9 @@ const ProductActionModal = ({
       });
 
       return setTimeout(() => {
+        setLoading(false);
         onClose();
-      }, 2000);
+      }, 1500);
     }
 
     const newProducts = products.map((product: ProductsType) => {
@@ -145,9 +152,10 @@ const ProductActionModal = ({
       title: 'Produto editado com sucesso ✅',
     });
 
-    setTimeout(() => {
+    return setTimeout(() => {
+      setLoading(false);
       onClose();
-    }, 2000);
+    }, 1500);
   };
 
   return (
@@ -238,8 +246,12 @@ const ProductActionModal = ({
               <Button className="w-full" variant="outline" onClick={onClose}>
                 Voltar
               </Button>
-              <Button className="w-full" type="submit">
-                Salvar
+              <Button className="w-full" disabled={loading} type="submit">
+                {loading ? (
+                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                ) : (
+                  'Salvar'
+                )}
               </Button>
             </DialogFooter>
           </form>
