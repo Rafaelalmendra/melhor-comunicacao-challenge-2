@@ -26,9 +26,10 @@ const HomeView = () => {
   );
 
   useEffect(() => {
-    const items: ProductsType[] = JSON.parse(
-      localStorage.getItem('products') ?? '',
-    );
+    const localProducts = localStorage.getItem('products');
+    const items: ProductsType[] =
+      localProducts !== null ? JSON.parse(localProducts) : [];
+
     setProducts(items);
   }, [editProductModal, deleteProductModal, currentProduct]);
 

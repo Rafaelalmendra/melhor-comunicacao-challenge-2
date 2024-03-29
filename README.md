@@ -2,13 +2,13 @@
 
 <img src="./.github/cover.png"/>
 
-About
+## About
 
 Melhor-celular is a responsive site to manage cell phone records
 
-Deploy
+## Deploy
 
-<a href="https://melhor-celular.vercel.app/">Access the deploy</a>
+<a href="https://melhor-celular.vercel.app/" target="_blank">Access the deploy</a>
 
 ## Technologies
 
