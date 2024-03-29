@@ -1,6 +1,6 @@
 #
 
-<img src="./.github/cover.png"/>
+<img src="./github/cover.png"/>
 
 ## About
 
