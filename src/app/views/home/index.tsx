@@ -17,7 +17,7 @@ import {
 import { Plus, Smartphone } from 'lucide-react';
 
 const HomeView = () => {
-  const products = JSON.parse(localStorage.getItem('products') ?? '');
+  const [products, setProducts] = useState<ProductsType[]>([]);
 
   const [editProductModal, setEditProductModal] = useState(false);
   const [deleteProductModal, setDeleteProductModal] = useState(false);
@@ -26,8 +26,11 @@ const HomeView = () => {
   );
 
   useEffect(() => {
-    console.log('products: ', products);
-  }, [products]);
+    const items: ProductsType[] = JSON.parse(
+      localStorage.getItem('products') ?? '',
+    );
+    setProducts(items);
+  }, [editProductModal, deleteProductModal, currentProduct]);
 
   const handleAddProduct = () => {
     setEditProductModal(true);
