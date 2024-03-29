@@ -6,7 +6,7 @@ import { useState } from 'react';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { useForm, type SubmitHandler } from 'react-hook-form';
 
-import { useLocalStorage } from 'hooks';
+import { toast, useLocalStorage } from 'hooks';
 
 import { productsSchema, type ProductsSchemaType } from 'schemas';
 import type { ProductsType } from 'types';
@@ -112,7 +112,30 @@ const ProductActionModal = ({
       endSales: String(new Date(data.endSales).toISOString().split('T')[0]),
     };
 
-    console.log(newProduct);
+    if (new Date(endSalesDate) < new Date(startSalesDate)) {
+      return toast({
+        title: 'Data final não pode ser menor que a data inicial',
+        variant: 'destructive',
+      });
+    }
+
+    if (defaultData === null) {
+      if (products === undefined || products.length === 0) {
+        setProducts([newProduct]);
+        return;
+      }
+
+      setProducts([newProduct, ...products]);
+      return;
+    }
+
+    const newProducts = products.map((product: ProductsType) => {
+      if (product.code === defaultData.code) return newProduct;
+
+      return product;
+    });
+
+    setProducts(newProducts);
   };
 
   return (
@@ -186,6 +209,7 @@ const ProductActionModal = ({
                     handleChangeDate('initial', e.target.value);
                   }}
                 />
+
                 <FormInput
                   type="date"
                   label="Fim das vendas"

@@ -2,7 +2,7 @@ import React from 'react';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 
-import { Layout } from 'components';
+import { Layout, Toaster } from 'components';
 
 import 'styles/globals.css';
 
@@ -22,6 +22,7 @@ const RootLayout = ({
     <html lang="pt-br">
       <body className={inter.className}>
         <Layout>{children}</Layout>
+        <Toaster />
       </body>
     </html>
   );
