@@ -22,33 +22,15 @@ import {
   TableCell,
   TableHead,
   TableHeader,
-  TablePagination,
   TableRow,
 } from 'components';
 
 type DataTableProps = {
   data: any;
   columns: any;
-  totalPages: number;
-  pagination: {
-    pageIndex: number;
-    pageSize: number;
-  };
-  setPagination: React.Dispatch<
-    React.SetStateAction<{
-      pageIndex: number;
-      pageSize: number;
-    }>
-  >;
 };
 
-const DataTable = ({
-  data,
-  columns,
-  pagination,
-  totalPages,
-  setPagination,
-}: DataTableProps) => {
+const DataTable = ({ data, columns }: DataTableProps) => {
   const [rowSelection, setRowSelection] = useState({});
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
@@ -57,7 +39,7 @@ const DataTable = ({
   const table = useReactTable({
     data,
     columns,
-    pageCount: totalPages,
+    pageCount: 1,
     manualPagination: true,
     onSortingChange: setSorting,
     onColumnFiltersChange: setColumnFilters,
@@ -133,12 +115,6 @@ const DataTable = ({
           </TableBody>
         </Table>
       </div>
-
-      <TablePagination
-        pagination={pagination}
-        totalPages={totalPages}
-        setPagination={setPagination}
-      />
     </div>
   );
 };

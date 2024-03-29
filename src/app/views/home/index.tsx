@@ -23,10 +23,6 @@ const HomeView = () => {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [totalPages, setTotalPages] = useState(0);
-  const [pagination, setPagination] = useState({
-    pageIndex: 0,
-    pageSize: 30,
-  });
 
   useEffect(() => {
     console.log('products: ', products);
@@ -78,13 +74,7 @@ const HomeView = () => {
           {products === undefined || (products.length === 0 && <NoDataTable />)}
 
           {products !== undefined && products.length > 0 && (
-            <DataTable
-              data={products}
-              columns={productsColumn}
-              totalPages={totalPages}
-              pagination={pagination}
-              setPagination={setPagination}
-            />
+            <DataTable data={products} columns={productsColumn} />
           )}
         </div>
       </div>

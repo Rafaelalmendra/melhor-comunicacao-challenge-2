@@ -1,4 +1,5 @@
 import type { ColumnDef } from '@tanstack/react-table';
+import { format } from 'date-fns';
 
 import type { ProductsType } from 'types';
 
@@ -54,10 +55,16 @@ const useProductsTableColumn = ({
     {
       accessorKey: 'startSales',
       header: 'Início das vendas',
+      cell: ({ row }) => {
+        return <p>{format(new Date(row.original.startSales), 'dd-MM-yyyy')}</p>;
+      },
     },
     {
       accessorKey: 'endSales',
       header: 'Fim das vendas',
+      cell: ({ row }) => {
+        return <p>{format(new Date(row.original.endSales), 'dd-MM-yyyy')}</p>;
+      },
     },
     {
       accessorKey: 'actions',

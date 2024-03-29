@@ -130,7 +130,7 @@ const ProductActionModal = ({
         title: 'Produto adicionado com sucesso ✅',
       });
 
-      setTimeout(() => {
+      return setTimeout(() => {
         onClose();
       }, 2000);
     }
