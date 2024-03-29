@@ -211,6 +211,7 @@ const ProductActionModal = ({
                       background: color !== '' ? color : 'transparent',
                     }}
                     variant="outline"
+                    type="button"
                     onClick={handleOpenColorPicker}
                   >
                     {color !== '' ? 'Alterar cor' : 'Selecionar cor'}

@@ -30,7 +30,7 @@ const ColorPickerModal = ({
         />
 
         <DialogFooter className="w-full">
-          <Button className="w-full" onClick={onClose}>
+          <Button className="w-full" type="button" onClick={onClose}>
             Confirmar
           </Button>
         </DialogFooter>
